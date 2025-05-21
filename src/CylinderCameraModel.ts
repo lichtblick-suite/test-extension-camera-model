@@ -88,7 +88,7 @@ export class CylinderCameraModel implements ICameraModel {
     if (width <= 0 || height <= 0) {
       throw new Error(`Invalid image size ${width}x${height}`);
     }
-    if (model.length > 0 && model !== "cylindrical") {
+    if (model.length > 0 && model !== "CylinderCameraModel") {
       throw new Error(`Unrecognized distortion_model "${model}"`);
     }
     if (K.length !== 0 && K.length !== 9) {
