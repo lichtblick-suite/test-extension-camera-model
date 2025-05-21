@@ -1,13 +1,23 @@
-import {
-  CameraInfo,
-  CustomCameraInfo,
-  ICameraModel,
-  Matrix3,
-  Matrix3x4,
-  Vec8,
-  Vector2,
-  Vector3,
-} from "./types";
+import { CameraInfo, ICameraModel, Vector2, Vector3 } from "./lichtblick-suite.types";
+
+export type Matrix3 = [number, number, number, number, number, number, number, number, number];
+
+export type Matrix3x4 = [
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+];
+
+export type Vec8 = [number, number, number, number, number, number, number, number];
 
 /**
  * A cylindrical camera model that can be used to rectify, unrectify, and project pixel coordinates.
@@ -17,8 +27,6 @@ import {
  * while the projection matrix `P` relates to the processed cylindrical projection.
  */
 export class CylinderCameraModel implements ICameraModel {
-  public name = "CylinderCameraModel";
-
   public fx: number;
   public fy: number;
   public cx: number;
@@ -55,8 +63,7 @@ export class CylinderCameraModel implements ICameraModel {
 
   // Mostly copied from `fromCameraInfo`
   // <http://docs.ros.org/diamondback/api/image_geometry/html/c++/pinhole__camera__model_8cpp_source.html#l00064>
-  public constructor(customCameraInfo: CustomCameraInfo) {
-    const { params } = customCameraInfo as { params: CameraInfo };
+  public constructor(cameraInfo: CameraInfo) {
     const {
       binning_x,
       binning_y,
@@ -68,7 +75,8 @@ export class CylinderCameraModel implements ICameraModel {
       R,
       width,
       height,
-    } = params;
+    } = cameraInfo;
+
     const fx = K[0];
     const fy = K[4];
 

@@ -1,33 +1,18 @@
+// THESE TYPES SHOULD COME FROM THE @LICHTBLICK/SUITE INTERFACE
+
+import { ExtensionContext } from "@lichtblick/suite";
+
 export type Vector2 = { x: number; y: number };
 
 export type Vector3 = { x: number; y: number; z: number };
 
-export type Matrix3 = [number, number, number, number, number, number, number, number, number];
+type CameraModelBuilder = (CameraInfo: CameraInfo) => ICameraModel;
 
-export type Matrix3x4 = [
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number,
-];
-
-export type Vec8 = [number, number, number, number, number, number, number, number];
-
-export type CustomCameraInfo = {
-  name: string;
-  params: unknown;
+export type ExtendedExtensionContext = ExtensionContext & {
+  registerCameraModel(name: string, builder: CameraModelBuilder): void;
 };
 
 export interface ICameraModel {
-  name: string;
   width: number;
   height: number;
   fx: number;
@@ -38,12 +23,7 @@ export interface ICameraModel {
   projectPixelTo3dRay(out: Vector3, pixel: Readonly<Vector2>): Vector3;
 }
 
-type DistortionModel =
-  | "plumb_bob"
-  | "rational_polynomial"
-  | "cylindrical"
-  | "deformed_cylinder"
-  | (string & {});
+type DistortionModel = "plumb_bob" | "rational_polynomial" | string;
 
 type FloatArray = number[] | Float32Array | Float64Array;
 
