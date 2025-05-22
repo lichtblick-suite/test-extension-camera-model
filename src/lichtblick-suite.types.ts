@@ -6,10 +6,15 @@ export type Vector2 = { x: number; y: number };
 
 export type Vector3 = { x: number; y: number; z: number };
 
-type CameraModelBuilder = (CameraInfo: CameraInfo) => ICameraModel;
+type CameraModelBuilder = (info: CameraInfo) => ICameraModel;
+
+export type RegisterCameraModelArgs = {
+  name: DistortionModel;
+  modelBuilder: CameraModelBuilder;
+};
 
 export type ExtendedExtensionContext = ExtensionContext & {
-  registerCameraModel(name: string, builder: CameraModelBuilder): void;
+  registerCameraModel(args: RegisterCameraModelArgs): void;
 };
 
 export interface ICameraModel {
